@@ -15,11 +15,16 @@ class _SubwayListState extends State<SubwayList> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.lightGreen, title: const Text("지하철 목록")),
-      body: Column(
-        children: [
-          SubwayCard(),
-        ],
-      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SubwayCard(),
+            SubwayCard(),
+            SubwayCard(),
+            SubwayCard(),
+          ],
+        )
+      )  
     );
   }
 }
@@ -45,6 +50,7 @@ class SubwayCard extends StatelessWidget {
                 child: Text(station1 + " --> " + station2,
                     style: TextStyle(fontSize: 18)),
               ),
+              SizedBox(height: 10),
               Row(
                 children: [
                   Text("36", style: TextStyle(fontSize: 24)),
@@ -54,12 +60,22 @@ class SubwayCard extends StatelessWidget {
                   Text("도착", style: TextStyle()),
                 ],
               ),
+              SizedBox(height: 10),
               Row(
                 children: [
                   Text("도착예정시간: "),
                   Text("9분 42초", style: TextStyle(color: Colors.red)),
                 ],
               ),
+              SizedBox(height: 10),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: (){
+                  print("Subway selected");
+                },
+                child: Text("선택")),
+              ), 
             ],
           ),
         ),
