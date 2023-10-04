@@ -18,13 +18,18 @@ class _SubwayListState extends State<SubwayList> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Row(
+              children: [
+                
+              ],
+            ),
             SubwayCard(),
             SubwayCard(),
             SubwayCard(),
             SubwayCard(),
           ],
         )
-      )  
+      )
     );
   }
 }
