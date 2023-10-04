@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:subwayapp/subwaylist.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,8 +14,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-    String? selectedValue;
-    final TextEditingController textEditingController = TextEditingController();
+  String? selectedValue;
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +25,11 @@ class _HomeState extends State<Home> {
       "강남",
     ];
 
-
     @override
     void dispose() {
       textEditingController.dispose();
       super.dispose();
     }
-
 
     return Scaffold(
         // appBar: AppBar(
@@ -70,178 +69,176 @@ class _HomeState extends State<Home> {
                 ),
                 Text("출발지", style: TextStyle(fontSize: 24)),
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 50, right: 50, top: 10, bottom: 40),
-                  child: Container(
-                    child: DropdownButton2<String>(
-                      isExpanded: true,
-                      barrierColor: Colors.grey.withOpacity(0.5),
-                      hint: Text(
-                        '출발지 역 이름',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Theme.of(context).hintColor,
-                        ),
-                      ),
-                      items: stations
-                          .map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Text(
-                                  item,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          print("Before: $selectedValue");
-                          selectedValue = value;
-                          print("After: $selectedValue");
-                        });
-                      },
-                      value: selectedValue,
-                      buttonStyleData: const ButtonStyleData(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        height: 60,
-                        width: 280,
-                      ),
-                      dropdownStyleData: const DropdownStyleData(
-                        maxHeight: 300,
-                      ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        height: 50,
-                      ),
-                      dropdownSearchData: DropdownSearchData(
-                        searchController: textEditingController,
-                        searchInnerWidgetHeight: 50,
-                        searchInnerWidget: Container(
-                          height: 60,
-                          padding: const EdgeInsets.only(
-                            top: 8,
-                            bottom: 4,
-                            right: 8,
-                            left: 8,
+                    padding: const EdgeInsets.only(
+                        left: 50, right: 50, top: 10, bottom: 40),
+                    child: Container(
+                      child: DropdownButton2<String>(
+                        isExpanded: true,
+                        barrierColor: Colors.grey.withOpacity(0.5),
+                        hint: Text(
+                          '출발지 역 이름',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Theme.of(context).hintColor,
                           ),
-                          child: TextFormField(
-                            expands: true,
-                            maxLines: null,
-                            controller: textEditingController,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 8,
-                              ),
-                              hintText: '검색...',
-                              hintStyle: const TextStyle(fontSize: 18),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                        ),
+                        items: stations
+                            .map((item) => DropdownMenuItem(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            print("Before: $selectedValue");
+                            selectedValue = value;
+                            print("After: $selectedValue");
+                          });
+                        },
+                        value: selectedValue,
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          height: 60,
+                          width: 280,
+                        ),
+                        dropdownStyleData: const DropdownStyleData(
+                          maxHeight: 300,
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          height: 50,
+                        ),
+                        dropdownSearchData: DropdownSearchData(
+                          searchController: textEditingController,
+                          searchInnerWidgetHeight: 50,
+                          searchInnerWidget: Container(
+                            height: 60,
+                            padding: const EdgeInsets.only(
+                              top: 8,
+                              bottom: 4,
+                              right: 8,
+                              left: 8,
+                            ),
+                            child: TextFormField(
+                              expands: true,
+                              maxLines: null,
+                              controller: textEditingController,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 8,
+                                ),
+                                hintText: '검색...',
+                                hintStyle: const TextStyle(fontSize: 18),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
                             ),
                           ),
+                          searchMatchFn: (item, searchValue) {
+                            return item.value.toString().contains(searchValue);
+                          },
                         ),
-                        searchMatchFn: (item, searchValue) {
-                          return item.value.toString().contains(searchValue);
+                        //This to clear the search value when you close the menu
+                        onMenuStateChange: (isOpen) {
+                          if (!isOpen) {
+                            textEditingController.clear();
+                          }
                         },
                       ),
-                      //This to clear the search value when you close the menu
-                      onMenuStateChange: (isOpen) {
-                        if (!isOpen) {
-                          textEditingController.clear();
-                        }
-                      },
-                    ),
-                  )
-                ),
+                    )),
                 Text("도착지", style: TextStyle(fontSize: 24)),
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 50, right: 50, top: 10, bottom: 40),
-                  child: Container(
-                    child: DropdownButton2<String>(
-                      isExpanded: true,
-                      barrierColor: Colors.grey.withOpacity(0.5),
-                      hint: Text(
-                        '도착지 역 이름',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Theme.of(context).hintColor,
-                        ),
-                      ),
-                      items: stations
-                          .map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Text(
-                                  item,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          print("Before: $selectedValue");
-                          selectedValue = value;
-                          print("After: $selectedValue");
-                        });
-                      },
-                      value: selectedValue,
-                      buttonStyleData: const ButtonStyleData(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        height: 60,
-                        width: 280,
-                      ),
-                      dropdownStyleData: const DropdownStyleData(
-                        maxHeight: 300,
-                      ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        height: 50,
-                      ),
-                      dropdownSearchData: DropdownSearchData(
-                        searchController: textEditingController,
-                        searchInnerWidgetHeight: 50,
-                        searchInnerWidget: Container(
-                          height: 60,
-                          padding: const EdgeInsets.only(
-                            top: 8,
-                            bottom: 4,
-                            right: 8,
-                            left: 8,
+                    padding: const EdgeInsets.only(
+                        left: 50, right: 50, top: 10, bottom: 40),
+                    child: Container(
+                      child: DropdownButton2<String>(
+                        isExpanded: true,
+                        barrierColor: Colors.grey.withOpacity(0.5),
+                        hint: Text(
+                          '도착지 역 이름',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Theme.of(context).hintColor,
                           ),
-                          child: TextFormField(
-                            expands: true,
-                            maxLines: null,
-                            controller: textEditingController,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 8,
-                              ),
-                              hintText: '검색...',
-                              hintStyle: const TextStyle(fontSize: 18),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                        ),
+                        items: stations
+                            .map((item) => DropdownMenuItem(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            print("Before: $selectedValue");
+                            selectedValue = value;
+                            print("After: $selectedValue");
+                          });
+                        },
+                        value: selectedValue,
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          height: 60,
+                          width: 280,
+                        ),
+                        dropdownStyleData: const DropdownStyleData(
+                          maxHeight: 300,
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          height: 50,
+                        ),
+                        dropdownSearchData: DropdownSearchData(
+                          searchController: textEditingController,
+                          searchInnerWidgetHeight: 50,
+                          searchInnerWidget: Container(
+                            height: 60,
+                            padding: const EdgeInsets.only(
+                              top: 8,
+                              bottom: 4,
+                              right: 8,
+                              left: 8,
+                            ),
+                            child: TextFormField(
+                              expands: true,
+                              maxLines: null,
+                              controller: textEditingController,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 8,
+                                ),
+                                hintText: '검색...',
+                                hintStyle: const TextStyle(fontSize: 18),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
                             ),
                           ),
+                          searchMatchFn: (item, searchValue) {
+                            return item.value.toString().contains(searchValue);
+                          },
                         ),
-                        searchMatchFn: (item, searchValue) {
-                          return item.value.toString().contains(searchValue);
+                        //This to clear the search value when you close the menu
+                        onMenuStateChange: (isOpen) {
+                          if (!isOpen) {
+                            textEditingController.clear();
+                          }
                         },
                       ),
-                      //This to clear the search value when you close the menu
-                      onMenuStateChange: (isOpen) {
-                        if (!isOpen) {
-                          textEditingController.clear();
-                        }
-                      },
-                    ),
-                  )
-                ),
+                    )),
                 Spacer(),
                 SizedBox(
                   width: 100,
@@ -251,6 +248,11 @@ class _HomeState extends State<Home> {
                         backgroundColor: Colors.green.withOpacity(0.3),
                       ),
                       onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SubwayList()),
+                        );
+
                         print("Route selected");
                       },
                       child: Text("선택",

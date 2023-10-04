@@ -14,7 +14,7 @@ class _SubwayListState extends State<SubwayList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.lightGreen, title: const Text("지하철 목록")),
+          backgroundColor: Colors.green, title: const Text("지하철 목록")),
       body: SingleChildScrollView(
         child: Column(
           children: [
