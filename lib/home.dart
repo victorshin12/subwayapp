@@ -14,7 +14,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String? selectedValue;
+  String? selectedStart;
+  String? selectedDestination;
   final TextEditingController textEditingController = TextEditingController();
 
   @override
@@ -95,12 +96,12 @@ class _HomeState extends State<Home> {
                             .toList(),
                         onChanged: (value) {
                           setState(() {
-                            print("Before: $selectedValue");
-                            selectedValue = value;
-                            print("After: $selectedValue");
+                            print("Before: $selectedStart");
+                            selectedStart = value;
+                            print("After: $selectedStart");
                           });
                         },
-                        value: selectedValue,
+                        value: selectedStart,
                         buttonStyleData: const ButtonStyleData(
                           padding: EdgeInsets.symmetric(horizontal: 16),
                           height: 60,
@@ -181,12 +182,12 @@ class _HomeState extends State<Home> {
                             .toList(),
                         onChanged: (value) {
                           setState(() {
-                            print("Before: $selectedValue");
-                            selectedValue = value;
-                            print("After: $selectedValue");
+                            print("Before: $selectedDestination");
+                            selectedDestination = value;
+                            print("After: $selectedDestination");
                           });
                         },
-                        value: selectedValue,
+                        value: selectedDestination,
                         buttonStyleData: const ButtonStyleData(
                           padding: EdgeInsets.symmetric(horizontal: 16),
                           height: 60,
