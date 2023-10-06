@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:subwayapp/setalarm.dart';
 
 class SubwayList extends StatefulWidget {
   const SubwayList({super.key});
@@ -77,8 +78,12 @@ class SubwayCard extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
                   onPressed: (){
-                  print("Subway selected");
-                },
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SetAlarm()),
+                    );
+                    print("Subway selected");
+                  },
                 child: Text("선택")),
               ), 
             ],

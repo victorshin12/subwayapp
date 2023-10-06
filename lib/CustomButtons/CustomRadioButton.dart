@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, curly_braces_in_flow_control_structures
 
 part of '../custom_radio_grouped_button.dart';
 
@@ -8,6 +8,7 @@ class CustomRadioButton<T> extends StatefulWidget {
     super.key,
     required this.buttonLables,
     required this.icon,
+    required this.iconSize,
     required this.buttonValues,
     this.buttonTextStyle = const ButtonTextStyle(),
     this.autoWidth = false,
@@ -86,6 +87,7 @@ class CustomRadioButton<T> extends StatefulWidget {
   final List<String> buttonLables;
 
   final List<String> icon;
+  final List<double> iconSize;
 
   ///List of disabled values
   final List<T> disabledValues;
@@ -193,9 +195,9 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
                         BorderRadius.all(Radius.circular(widget.shapeRadius)),
                   )
               : RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(widget.shapeRadius)),
-                  ),
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(widget.shapeRadius)),
+                ),
           child: Container(
             height: widget.height,
             child: MaterialButton(
@@ -247,7 +249,7 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
             : null,
         child: Container(
           height: widget.height,
-          width: widget.autoWidth ? null : widget.width,
+          width: widget.autoWidth ? null : widget.width-5,
           constraints: widget.autoWidth ? null : BoxConstraints(maxWidth: 250),
           child: MaterialButton(
             shape: widget.enableShape
@@ -262,23 +264,35 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
                     borderRadius: BorderRadius.circular(10),
                   ),
             onPressed: disabled ? null : () => selectButton(e),
-            child: Column(
-              children: [
-                Spacer(),
-                Text(
-                  widget.buttonLables[index],
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: textStyle(isSelected, disabled),
-                ),
-                Image(
-                  image: AssetImage(widget.icon[index]),
-                  height: 50,
-                ),
-                Spacer(),
-              ],
-            ),
+            child: widget.buttonLables[index] != "empty"
+                ? Column(
+                    children: [
+                      Spacer(),
+                      Text(
+                        widget.buttonLables[index],
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: textStyle(isSelected, disabled),
+                      ),
+                      Image(
+                        image: AssetImage(widget.icon[index]),
+                        height: widget.iconSize[index],
+                      ),
+                      Spacer(),
+                    ],
+                  )
+                  //If I want button to have no text, just icon:
+                : Column(
+                    children: [
+                      Spacer(),
+                      Image(
+                        image: AssetImage(widget.icon[index]),
+                        height: 50,
+                      ),
+                      Spacer(),
+                    ],
+                  ),
           ),
         ),
       );

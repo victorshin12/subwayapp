@@ -33,6 +33,7 @@ class _HomeState extends State<Home> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         // appBar: AppBar(
         //   backgroundColor: Colors.green,
         //   title: Text("Subway App"),
@@ -253,7 +254,7 @@ class _HomeState extends State<Home> {
                           context,
                           MaterialPageRoute(builder: (context) => SubwayList()),
                         );
-
+              
                         print("Route selected");
                       },
                       child: Text("선택",
