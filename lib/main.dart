@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:subwayapp/setalarm.dart';
 import 'package:subwayapp/subwaylist.dart';
+import 'package:subwayapp/waitscreen.dart';
 
 import 'home.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Home(),
+      home: SubwayList(),
     );
   }
 }

@@ -31,7 +31,8 @@ class _SetAlarmState extends State<SetAlarm> {
           "알람설정",
           textAlign: TextAlign.center,
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: Stack(children: [
       Positioned.fill(
@@ -53,20 +54,18 @@ class _SetAlarmState extends State<SetAlarm> {
             "7:24출발 → 7:42도착",
             style: TextStyle(
               fontSize: 28,
-              fontWeight: FontWeight.bold
             )
           ),
           Text(
             "(38분)",
             style: TextStyle(
               fontSize: 28,
-              fontWeight: FontWeight.bold
             )
           ),
           SizedBox(height: 30,),
           Text(
-            "Step 1: Select Method",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            "알람수단",
+            style: TextStyle(fontSize: 18),
           ),
           SizedBox(
             height: 16,
@@ -117,11 +116,11 @@ class _SetAlarmState extends State<SetAlarm> {
             height: 30,
           ),
           Text(
-            "Step 2: Select Time",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            "시간설정",
+            style: TextStyle(fontSize: 18),
           ),
           SizedBox(
-            height: 16,
+            height: 8,
           ),
           CustomRadioButton(
             icon: [
@@ -130,9 +129,9 @@ class _SetAlarmState extends State<SetAlarm> {
               "assets/icons/1min.png",
             ],
             iconSize: [
-              50,
-              50,
-              50,
+              60,
+              60,
+              60,
             ],
             elevation: 0,
             // absoluteZeroSpacing: true,

@@ -288,7 +288,7 @@ class CustomRadioButtonState<T> extends State<CustomRadioButton<T>> {
                       Spacer(),
                       Image(
                         image: AssetImage(widget.icon[index]),
-                        height: 50,
+                        height: widget.iconSize[index],
                       ),
                       Spacer(),
                     ],

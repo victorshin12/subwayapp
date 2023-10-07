@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:subwayapp/home.dart';
 
 class WaitScreen extends StatefulWidget {
   const WaitScreen({super.key});
@@ -21,12 +22,12 @@ class _WaitScreenState extends State<WaitScreen> {
         //   title: Text("Subway App"),
         // ),
         body: Stack(children: [
-      Positioned.fill(
-        child: Image.asset(
-          'assets/subwaymap.png',
-          fit: BoxFit.cover,
-        ),
-      ),
+      // Positioned.fill(
+      //   child: Image.asset(
+      //     'assets/subwaymap.png',
+      //     fit: BoxFit.cover,
+      //   ),
+      // ),
       BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
           child: Container(
@@ -51,44 +52,18 @@ class _WaitScreenState extends State<WaitScreen> {
                     ],
                   ),
                 ),
-                Text("출발지", style: TextStyle(fontSize: 24)),
-                Padding(
-                    padding: const EdgeInsets.only(
-                        left: 50, right: 50, top: 10, bottom: 40),
-                    child: Container(
-                      child: Placeholder(),
-                    )),
-                Text("도착지", style: TextStyle(fontSize: 24)),
-                Padding(
-                    padding: const EdgeInsets.only(
-                        left: 50, right: 50, top: 10, bottom: 40),
-                    child: Container(
-                      child: Placeholder(),
-                    )),
-                Spacer(),
-                SizedBox(
-                  width: 100,
-                  height: 50,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green.withOpacity(0.3),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => WaitScreen()),
-                        );
-
-                        print("Route selected");
-                      },
-                      child: Text("선택",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                          ))),
-                ),
-                // SizedBox(height: 50,),
-                Spacer(),
+                // Image.asset(
+                //   "assets/subwayanimation.gif",
+                // )
+                ElevatedButton(
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                    print("Subway selected");
+                  },
+                child: Text("확인")),
               ],
             ),
           ))
