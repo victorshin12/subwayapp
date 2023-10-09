@@ -14,13 +14,27 @@ class WaitScreen extends StatefulWidget {
 }
 
 class _WaitScreenState extends State<WaitScreen> {
+  var stationName = "삼성";
+  var minutes = 3;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: Colors.green,
-        //   title: Text("Subway App"),
-        // ),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image(
+                        image: AssetImage("assets/trains.png"),
+                        height: 50,
+                      ),
+                      Text(" DDING",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+        ),
         body: Stack(children: [
       // Positioned.fill(
       //   child: Image.asset(
@@ -34,27 +48,28 @@ class _WaitScreenState extends State<WaitScreen> {
             color:
                 Colors.white.withOpacity(0.5), // Adjust the opacity as needed
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 70, bottom: 120),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image(
-                        image: AssetImage("assets/trains.png"),
-                        height: 50,
-                      ),
-                      Text(" DDING",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                    ],
+                SizedBox(height: 100,),
+                Text(
+                  "$stationName역",
+                  style: TextStyle(
+                    fontSize: 24,
                   ),
                 ),
-                // Image.asset(
-                //   "assets/subwayanimation.gif",
-                // )
+                Text(
+                  "$minutes분후 도착합니다",
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+                SizedBox(height: 160,),
+                Image.asset(
+                  "assets/subwayanimation.gif",
+                  height: 80,
+                ),
+                SizedBox(height: 140,),
+                Center(),
                 ElevatedButton(
                   onPressed: (){
                     Navigator.push(
