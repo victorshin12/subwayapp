@@ -15,7 +15,7 @@ class _SubwayListState extends State<SubwayList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.green, title: const Text("지하철 목록")),
+          backgroundColor: Colors.transparent, title: const Text("지하철 목록")),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -69,11 +69,10 @@ class SubwayCard extends StatelessWidget {
               SizedBox(height: 10),
               Row(
                 children: [
-                  Text("도착예정시간: "),
+                  Text("도착: "),
                   Text("9분 42초", style: TextStyle(color: Colors.red)),
                 ],
               ),
-              SizedBox(height: 10),
               Align(
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
