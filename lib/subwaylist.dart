@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:subwayapp/setalarm.dart';
+import 'package:http/http.dart' as http;
 
 class SubwayList extends StatefulWidget {
   const SubwayList({super.key});
@@ -72,9 +74,16 @@ class SubwayCard extends StatefulWidget {
 }
 
 class _SubwayCardState extends State<SubwayCard> {
+  Future<int>? randomInt;
+
+  @override
+  void initState() {
+    super.initState();
+    randomInt = fetchRandomNumber();
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -92,14 +101,25 @@ class _SubwayCardState extends State<SubwayCard> {
                     style: TextStyle(fontSize: 18)),
               ),
               SizedBox(height: 10),
-              Row(
-                children: [
-                  Text("36", style: TextStyle(fontSize: 24)),
-                  Text("분", style: TextStyle()),
-                  Spacer(),
-                  Text("2:43", style: TextStyle(fontSize: 24)),
-                  Text("도착", style: TextStyle()),
-                ],
+              FutureBuilder<int>(
+                future: randomInt,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator(); // Show a loading indicator.
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}'); // Show an error message.
+                  } else {
+                    return Row(
+                      children: [
+                        Text(snapshot.data.toString(), style: TextStyle(fontSize: 24)),
+                        Text("분", style: TextStyle()),
+                        Spacer(),
+                        Text("2:43", style: TextStyle(fontSize: 24)),
+                        Text("도착", style: TextStyle()),
+                      ],
+                    );
+                  }
+                },
               ),
               SizedBox(height: 10),
               Row(
@@ -111,19 +131,34 @@ class _SubwayCardState extends State<SubwayCard> {
               Align(
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SetAlarm()),
                     );
                     print("Subway selected");
                   },
-                child: Text("선택")),
-              ), 
+                  child: Text("선택"),
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+
+Future<int> fetchRandomNumber() async {
+  final response = await http.get(Uri.parse('http://127.0.0.1:5000/get_random'));
+
+  if (response.statusCode == 200) {
+    // If the server returns a 200 OK response, parse the JSON and return the random number.
+    Map<String, dynamic> data = json.decode(response.body);
+    return data['random'];
+  } else {
+    // If the server did not return a 200 OK response, throw an exception.
+    throw Exception('Failed to fetch random number');
   }
 }

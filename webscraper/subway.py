@@ -63,14 +63,14 @@ def getTimes(html_tbody, updownID):
 #change to find_all to get all hours (code below is only for 5am)
 
 weekday = soup.find("div", class_="tableScrollWrap t1 active").table.tbody
-saturday = soup.find("div", class_="tableScrollWrap t2").table.tbody
-sunday = soup.find("div", class_="tableScrollWrap t3").table.tbody
+# saturday = soup.find("div", class_="tableScrollWrap t2").table.tbody
+# sunday = soup.find("div", class_="tableScrollWrap t3").table.tbody
 
 weekdayUp = np.asmatrix(getTimes(weekday, 1))
-weekdayDown = np.asmatrix(getTimes(weekday, 2))
-saturdayUp = np.asmatrix(getTimes(saturday, 1))
-saturdayDown = np.asmatrix(getTimes(saturday, 2))
-sundayUp = np.asmatrix(getTimes(sunday, 1))
-sundayDown = np.asmatrix(getTimes(sunday, 2))
+# weekdayDown = np.asmatrix(getTimes(weekday, 2))
+# saturdayUp = np.asmatrix(getTimes(saturday, 1))
+# saturdayDown = np.asmatrix(getTimes(saturday, 2))
+# sundayUp = np.asmatrix(getTimes(sunday, 1))
+# sundayDown = np.asmatrix(getTimes(sunday, 2))
 
 np.savetxt("weekdayUpData.csv", weekdayUp, fmt='%s', delimiter=",")
