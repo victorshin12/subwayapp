@@ -6,6 +6,7 @@ import re
 import numpy
 
 stationID = 4210
+hourSelected = "10"
 
 url = f'https://www.seoulmetro.co.kr/kr/getStationInfo.do?action=time&stationId={stationID}'
 
@@ -47,14 +48,16 @@ def getTimes(html_tbody, updownID):
     hours_tree = html_tbody.find_all("tr")
     for hours_tree_eachhour in hours_tree:
         hour = hours_tree_eachhour.th.text
-        hours_list = hours_tree_eachhour.find_all("li")
-        for hours_list_value in hours_list:
-            a_elements = hours_list_value.find_all("a", inouttag=updownID)
-            for a_value in a_elements:
-                temp_string = f"{hour}:{a_value.text}"
-                final_string = parse_string(temp_string, updownID)
-                array.append(final_string)
+        if hour == hourSelected:
+            hours_list = hours_tree_eachhour.find_all("li")
+            for hours_list_value in hours_list:
+                a_elements = hours_list_value.find_all("a", inouttag=updownID)
+                for a_value in a_elements:
+                    temp_string = f"{hour}:{a_value.text}"
+                    final_string = parse_string(temp_string, updownID)
+                    array.append(final_string)
     return array
+
 
 
 # each TR .tr of weekday is each hour from 5am~
@@ -73,4 +76,6 @@ weekdayUp = np.asmatrix(getTimes(weekday, 1))
 # sundayUp = np.asmatrix(getTimes(sunday, 1))
 # sundayDown = np.asmatrix(getTimes(sunday, 2))
 
-np.savetxt("weekdayUpData.csv", weekdayUp, fmt='%s', delimiter=",")
+print(weekdayUp)
+
+# np.savetxt("weekdayUpData.csv", weekdayUp, fmt='%s', delimiter=",")
